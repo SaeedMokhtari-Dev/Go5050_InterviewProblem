@@ -31,6 +31,7 @@ namespace InsuranceClaims.Utilities.Impls
             using (var reader = new StreamReader(file))
             using (var csv = new CsvReader(reader, config))
             {
+                csv.Context.RegisterClassMap<PaymentModelMap>();
                 var result = csv.GetRecordsAsync<PaymentModel>();
                 return await result.ToListAsync();
             }
@@ -43,11 +44,11 @@ namespace InsuranceClaims.Utilities.Impls
                 PrepareHeaderForMatch = args => args.Header.ToLower(),
                 Delimiter = ",",
                 TrimOptions = TrimOptions.Trim,
+                IgnoreBlankLines = true,
                 BadDataFound = x =>
                 {
                     Console.WriteLine($"Bad data found: <{x.RawRecord}>");
                 },
-                IgnoreBlankLines = true,
                 MissingFieldFound = x =>
                 {
                     Console.WriteLine($"Missing Field Found: <{x.Index}>: <{string.Join(",", x.HeaderNames)}>");
