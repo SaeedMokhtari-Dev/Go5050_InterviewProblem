@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using InsuranceClaims.Utilities.Impls;
@@ -18,7 +15,7 @@ namespace InsuranceClaims.Tests
         public InsuranceTests()
         {
             _fileUtilities = new FileUtilities();
-            _insurance = new Insurance(_fileUtilities, new MatrixUtilities());
+            _insurance = new Insurance(_fileUtilities);
         }
 
         [Fact]

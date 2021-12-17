@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using Ardalis.GuardClauses;
@@ -13,10 +11,8 @@ namespace InsuranceClaims
     public class Insurance: IInsurance
     {
         private readonly IFileUtilities _fileUtilities;
-        private readonly IMatrixUtilities _matrixUtilities;
-        public Insurance(IFileUtilities fileUtilities, IMatrixUtilities matrixUtilities)
+        public Insurance(IFileUtilities fileUtilities)
         {
-            _matrixUtilities = matrixUtilities;
             _fileUtilities = fileUtilities;
         }
         public async Task<string> GenerateResultFromInputFile(string file)

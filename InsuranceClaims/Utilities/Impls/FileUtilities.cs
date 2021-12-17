@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -35,13 +36,22 @@ namespace InsuranceClaims.Utilities.Impls
             }
         }
 
-        private static CsvConfiguration GetCsvConfiguration()
+        private CsvConfiguration GetCsvConfiguration()
         {
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 PrepareHeaderForMatch = args => args.Header.ToLower(),
                 Delimiter = ",",
-                TrimOptions = TrimOptions.Trim
+                TrimOptions = TrimOptions.Trim,
+                BadDataFound = x =>
+                {
+                    Console.WriteLine($"Bad data found: <{x.RawRecord}>");
+                },
+                IgnoreBlankLines = true,
+                MissingFieldFound = x =>
+                {
+                    Console.WriteLine($"Missing Field Found: <{x.Index}>: <{string.Join(",", x.HeaderNames)}>");
+                }
             };
             return config;
         }
